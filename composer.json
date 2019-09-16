@@ -1,0 +1,75 @@
+{
+    "name": "metadeck/nova-blog",
+    "description": "Nova Blog",
+    "keywords": [
+        "metadeck",
+        "blog",
+        "nova"
+    ],
+    "homepage": "https://github.com/metadeck/nova-blog",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Declan McDonough",
+            "email": "declan@metadeck.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "advoor/nova-editor-js": "^0.6.1",
+        "benjaminhirsch/nova-slug-field": "^1.2",
+        "ebess/advanced-nova-media-library": "^2.9",
+        "illuminate/http": "^6.0",
+        "illuminate/support": "^6.0",
+        "laravel/nova": "^2.0",
+        "metadeck/blog": "dev-master",
+        "spatie/nova-tags-field": "^2.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "provide": {
+        "ext-imagick": "*"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "../blog"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Metadeck\\NovaBlog\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Metadeck\\NovaBlog\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Metadeck\\NovaBlog\\NovaBlogServiceProvider"
+            ],
+            "aliases": {
+                "Blog": "Metadeck\\NovaBlog\\BlogFacade"
+            }
+        }
+    }
+}
