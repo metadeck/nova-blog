@@ -24,7 +24,7 @@
         "illuminate/http": "^6.0",
         "illuminate/support": "^6.0",
         "laravel/nova": "^2.0",
-        "metadeck/blog": "dev-master",
+        "metadeck/blog": "^1.0",
         "spatie/nova-tags-field": "^2.3"
     },
     "require-dev": {
@@ -38,10 +38,6 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
-        },
-        {
-            "type": "path",
-            "url": "../blog"
         }
     ],
     "autoload": {
