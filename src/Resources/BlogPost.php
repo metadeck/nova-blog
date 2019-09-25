@@ -2,6 +2,8 @@
 
 namespace Metadeck\NovaBlog\Resources;
 
+use Arsenaltech\NovaTab\NovaTab;
+use Arsenaltech\NovaTab\Tabs;
 use Benjaminhirsch\NovaSlugField\Slug;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 use Epartment\NovaDependencyContainer\HasDependencies;
@@ -26,6 +28,8 @@ use Spatie\TagsField\Tags;
 
 class BlogPost extends Resource
 {
+
+    use Tabs;
 
     /**
      * The model the resource corresponds to.
@@ -73,56 +77,68 @@ class BlogPost extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()
-                ->sortable(),
 
-            TextWithSlug::make('Title')
-                ->slug('slug')
-                ->sortable()
-                ->rules(['required']),
+            new NovaTab('Content', [
+                Textarea::make('Summary')
+                    ->hideFromIndex(),
 
-            Slug::make('Slug')
-                ->disableAutoUpdateWhenUpdating(),
+                NovaEditorJs::make('Body')
+                    ->rules(['required']),
+            ]),
 
-            BelongsTo::make('Category', 'category', BlogCategory::class)
-                ->rules(['required']),
+            new NovaTab('Details', [
+                ID::make()
+                    ->sortable(),
 
-            Images::make('Featured Image', 'featured_image')
-                ->conversionOnIndexView('thumb')
-                ->croppingConfigs(['ratio' => 16/9]),
+                TextWithSlug::make('Title')
+                    ->slug('slug')
+                    ->sortable()
+                    ->rules(['required']),
 
-            BelongsTo::make('Author', 'author', config('nova-blog.user_model'))
-                ->sortable()
-                ->rules(['required']),
+                Slug::make('Slug')
+                    ->disableAutoUpdateWhenUpdating(),
 
-            Textarea::make('Summary')
-                ->hideFromIndex(),
+                BelongsTo::make('Category', 'category', BlogCategory::class)
+                    ->rules(['required']),
 
-            Select::make('Content Type', 'content_type')->options([
-                'markdown' => 'Markdown',
-                'editor-js' => 'Editor JS',
-            ])->displayUsingLabels(),
+                BelongsTo::make('Author', 'author', config('nova-blog.user_model'))
+                    ->sortable()
+                    ->rules(['required']),
+            ]),
 
-            Markdown::make('Body')
-                ->rules(['required']),
+            new NovaTab('Media', [
+                Images::make('Featured Image', 'featured_image')
+                    ->conversionOnIndexView('thumb')
+                    ->croppingConfigs(['ratio' => 16/9]),
+            ]),
 
-            NovaEditorJs::make('Body')
-                ->rules(['required']),
+            new NovaTab('SEO', [
+                Text::make('SEO Title', 'seo_title'),
 
-            Text::make('SEO Title', 'seo_title'),
+                Textarea::make('SEO Description', 'seo_description'),
 
-            Textarea::make('SEO Description', 'seo_description'),
+                Tags::make('Tags'),
+            ]),
 
-            Tags::make('Tags'),
+            new NovaTab('Publishing', [
 
+                Boolean::make('Featured')
+                    ->sortable(),
+
+                DateTime::make('Scheduled For')
+                    ->format('DD MMM YYYY hh:mm'),
+            ]),
+
+            // Read only computed field
             Boolean::make('Published')
                 ->exceptOnForms(),
-
-            Boolean::make('Featured')
-                ->sortable(),
-
-            DateTime::make('Scheduled For')
-                ->format('DD MMM YYYY hh:mm'),
+//            Select::make('Content Type', 'content_type')->options([
+//                'markdown' => 'Markdown',
+//                'editor-js' => 'Editor JS',
+//            ])->displayUsingLabels(),
+//
+//            Markdown::make('Body')
+//                ->rules(['required']),
         ];
     }
 
