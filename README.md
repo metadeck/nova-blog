@@ -1,6 +1,6 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/metadeck/blog.svg?style=flat-square)](https://packagist.org/packages/metadeck/blog)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/metadeck/nova-blog.svg?style=flat-square)](https://packagist.org/packages/metadeck/nova-blog)
 [![Build Status](https://img.shields.io/travis/metadeck/blog/master.svg?style=flat-square)](https://travis-ci.org/metadeck/blog)
 [![Quality Score](https://img.shields.io/scrutinizer/g/metadeck/blog.svg?style=flat-square)](https://scrutinizer-ci.com/g/metadeck/blog)
 [![Total Downloads](https://img.shields.io/packagist/dt/metadeck/blog.svg?style=flat-square)](https://packagist.org/packages/metadeck/blog)
