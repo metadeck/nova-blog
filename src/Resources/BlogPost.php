@@ -73,7 +73,7 @@ class BlogPost extends Resource
      */
     public function fields(Request $request)
     {
-        $editorClassName = config('nova-blog');
+        $editorClassName = config('nova-blog.content_editor');
 
         return [
 
