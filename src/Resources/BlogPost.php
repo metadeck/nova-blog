@@ -73,6 +73,8 @@ class BlogPost extends Resource
      */
     public function fields(Request $request)
     {
+        $editorClassName = config('nova-blog');
+
         return [
 
             new Tabs('Tabs', [
@@ -80,7 +82,7 @@ class BlogPost extends Resource
                     Textarea::make('Summary')
                         ->hideFromIndex(),
 
-                    NovaEditorJs::make('Body')
+                    $editorClassName::make('Body')
                         ->rules(['required']),
                 ],
                 'Details' => [
@@ -126,13 +128,6 @@ class BlogPost extends Resource
             // Read only computed field
             Boolean::make('Published')
                 ->exceptOnForms(),
-//            Select::make('Content Type', 'content_type')->options([
-//                'markdown' => 'Markdown',
-//                'editor-js' => 'Editor JS',
-//            ])->displayUsingLabels(),
-//
-//            Markdown::make('Body')
-//                ->rules(['required']),
         ];
     }
 
