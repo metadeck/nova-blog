@@ -8,6 +8,7 @@ use Eminiarts\Tabs\Tabs;
 use Epartment\NovaDependencyContainer\HasDependencies;
 use Epartment\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Heading;
 use Metadeck\Blog\Models\BlogPost as BlogPostModel;
 
 use Laravel\Nova\Resource;
@@ -77,53 +78,58 @@ class BlogPost extends Resource
 
         return [
 
-            new Tabs('Tabs', [
-                'Content' => [
-                    Textarea::make('Summary')
-                        ->hideFromIndex(),
+            Heading::make('Details'),
 
-                    $editorClassName::make('Body')
-                        ->rules(['required']),
-                ],
-                'Details' => [
-                    ID::make()
-                        ->sortable(),
+            ID::make()
+                ->sortable(),
 
-                    TextWithSlug::make('Title')
-                        ->slug('slug')
-                        ->sortable()
-                        ->rules(['required']),
+            TextWithSlug::make('Title')
+                ->slug('slug')
+                ->sortable()
+                ->rules(['required']),
 
-                    Slug::make('Slug')
-                        ->disableAutoUpdateWhenUpdating(),
+            Slug::make('Slug')
+                ->disableAutoUpdateWhenUpdating(),
 
-                    BelongsTo::make('Category', 'category', BlogCategory::class)
-                        ->rules(['required']),
+            BelongsTo::make('Category', 'category', BlogCategory::class)
+                ->rules(['required']),
 
-                    BelongsTo::make('Author', 'author', config('nova-blog.user_model'))
-                        ->sortable()
-                        ->rules(['required']),
-                ],
-                'Media' => [
-                    Images::make('Featured Image', 'featured_image')
-                        ->conversionOnIndexView('thumb')
-                        ->croppingConfigs(['ratio' => 16/9]),
-                ],
-                'SEO' => [
-                    Text::make('SEO Title', 'seo_title'),
+            BelongsTo::make('Author', 'author', config('nova-blog.user_model'))
+                ->sortable()
+                ->rules(['required']),
 
-                    Textarea::make('SEO Description', 'seo_description'),
+            Heading::make('Content'),
 
-                    Tags::make('Tags'),
-                ],
-                'Publishing' => [
-                    Boolean::make('Featured')
-                        ->sortable(),
+            Textarea::make('Summary')
+                ->stacked()
+                ->hideFromIndex(),
 
-                    DateTime::make('Scheduled For')
-                        ->format('DD MMM YYYY hh:mm'),
-                ],
-            ]),
+            $editorClassName::make('Body')
+                ->stacked()
+                ->rules(['required'])
+                ->hideFromIndex(),
+
+            Heading::make('Media'),
+
+            Images::make('Featured Image', 'featured_image')
+                ->conversionOnIndexView('thumb')
+                ->croppingConfigs(['ratio' => 16/9]),
+
+            Heading::make('SEO'),
+
+            Text::make('SEO Title', 'seo_title'),
+
+            Textarea::make('SEO Description', 'seo_description'),
+
+            Tags::make('Tags'),
+
+            Heading::make('Publishing'),
+
+            Boolean::make('Featured')
+                ->sortable(),
+
+            DateTime::make('Scheduled For')
+                ->format('DD MMM YYYY hh:mm'),
 
             // Read only computed field
             Boolean::make('Published')

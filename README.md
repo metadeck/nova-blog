@@ -13,6 +13,13 @@ You can install the package via composer:
 
 ```bash
 composer require metadeck/blog
+
+php artisan vendor:publish --provider="Metadeck\NovaBlog\NovaBlogServiceProvider"
+
+php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider"
+
+php artisan migrate
+
 ```
 
 ## Usage
@@ -37,7 +44,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email declan@metadeck.io instead of using the issue tracker.
+If you discover any security related issues, please email declan at metadeck.io instead of using the issue tracker.
 
 ## Credits
 
