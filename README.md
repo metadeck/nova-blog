@@ -18,6 +18,8 @@ php artisan vendor:publish --provider="Metadeck\NovaBlog\NovaBlogServiceProvider
 
 php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider"
 
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider"
+
 php artisan migrate
 
 ```
